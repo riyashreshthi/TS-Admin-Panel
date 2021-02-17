@@ -1,0 +1,123 @@
+<div class="main-content" style="padding-top: 25px;" *ngIf="toggleTable">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-icon card-header-info">
+                        <div class="row">
+                            <div class="col-md-1">
+                                <div class="card-icon">
+                                    <i class="material-icons">assignment</i>
+                                </div>
+                            </div>
+                            <div class="col-md-9"></div>
+                            <div class="col-md-2">
+                                <button mat-button type="button" class="btn pull-right btn-info"
+                                    style="border-radius: 30px; margin-top:7px" (click)="back()">Back</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="creationForm" (ngSubmit)="submitAction(creationForm.value)">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <mat-form-field class="example-full-width" style="width: inherit;">
+                                            <input matInput placeholder="Merchant Name" type="text" formControlName= "name" 
+                                            [(ngModel)]="creationForm.name">
+                                        </mat-form-field>
+                                        <mat-error>
+                                            <span *ngIf="!creationForm.get('name').valid && creationForm.get('name').touched">Please
+                                            Enter Merchant Name</span>
+                                        </mat-error>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <mat-form-field class="example-full-width" style="width: inherit;">
+                                            <input matInput placeholder="Logo" type="text" formControlName= "logo" [(ngModel)]="creationForm.logo">
+                                        </mat-form-field>
+                                        <mat-error>
+                                            <span *ngIf="!creationForm.get('logo').valid && creationForm.get('logo').touched">Please
+                                            Enter Logo URL</span>
+                                        </mat-error>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <mat-form-field class="example-full-width" style="width: inherit;">
+                                            <input matInput placeholder="Site" type="text" formControlName= "site" [(ngModel)]="creationForm.site">
+                                        </mat-form-field>
+                                        <mat-error>
+                                            <span *ngIf="!creationForm.get('site').valid && creationForm.get('site').touched">Please
+                                            Enter Website URL</span>
+                                        </mat-error>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <mat-form-field class="example-full-width" style="width: inherit;">
+                                            <input matInput placeholder="Person Name" type="text" formControlName= "person_name" [(ngModel)]="creationForm.person_name">
+                                        </mat-form-field>
+                                        <mat-error>
+                                            <span *ngIf="!creationForm.get('person_name').valid && creationForm.get('person_name').touched">Please
+                                            Enter Person Name</span>
+                                        </mat-error>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <mat-form-field class="example-full-width" style="width: inherit;">
+                                            <input matInput placeholder="Person Contact Number" type="text" formControlName= "person_contact_number" [(ngModel)]="creationForm.person_contact_number">
+                                        </mat-form-field>
+                                        <mat-error>
+                                            <span *ngIf="!creationForm.get('person_contact_number').valid && creationForm.get('person_contact_number').touched">Please
+                                            Enter Person Contact Number</span>
+                                        </mat-error>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <mat-form-field class="example-full-width" style="width: inherit;">
+                                            <textarea matInput placeholder="Address" type="text" formControlName= "address" 
+                                             [(ngModel)]="creationForm.address"></textarea>
+                                        </mat-form-field>
+                                        <mat-error>
+                                            <span *ngIf="!creationForm.get('address').valid && creationForm.get('address').touched">Please
+                                            Enter Person Address</span>
+                                        </mat-error>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+										<mat-select placeholder="Select Brand"
+											(selectionChange)="brandSelection($event.value * 1)">
+											<ng-container *ngFor="let data of brandsList">
+												<mat-option value="{{data.id}}"> {{data.brand_name}}</mat-option>
+											</ng-container>
+										</mat-select>
+									</mat-form-field>
+                                </div>
+                            </div>
+                            <button mat-raised-button type="submit" class="btn btn-info pull-right">
+                                Add
+                            </button>
+                            
+                            <!-- <div class="row">
+                                <div class="col-md-12">
+                                    <span style="color: red">{{message}}</span>
+                                </div>
+                            </div> -->
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-brands *ngIf="!toggleTable"></app-brands>

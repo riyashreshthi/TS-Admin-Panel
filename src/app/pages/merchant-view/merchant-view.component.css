@@ -1,0 +1,6 @@
+.control-ui {
+    display: block;
+    position: relative;
+    flex: auto;
+    min-width: 0;
+}

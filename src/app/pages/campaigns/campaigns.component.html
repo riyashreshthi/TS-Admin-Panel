@@ -1,0 +1,90 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div class="main-content" style="padding-top: 25px;" *ngIf="toggleTable">
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <!-- <div class="card-header card-header-icon card-header-info">
+                            <div class="card-icon">
+                                <i class="material-icons">assignment</i>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4 class="card-title"> <b>Campaigns List</b></h4>
+                                </div>
+                            </div>
+                        </div>   -->
+                        <div class="card-header card-header-icon card-header-info">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <div class="card-icon">
+                                        <i class="material-icons">assignment</i>
+                                    </div>
+                                </div>
+                                <div class="col-md-9"></div>
+                                <div class="col-md-2">
+                                    <button mat-raised-button (click)="createCampaign()" type="button"
+                                        matTooltip="Add Campaign" [matTooltipPosition]="'above'"
+                                        class="btn btn-info">Add Campaign</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="card-header card-header-info" data-color="azure">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4 class="card-title">Campaigns Listing</h4>
+                                </div>
+                                <div class="col-md-6">
+                                    <button mat-raised-button (click) = "createCampaign()" type="button"
+                            matTooltip="Add Campaign" [matTooltipPosition]="'above'"
+                            class="btn btn-info">Add Campaign</button>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="card-body">
+                            <div class="material-datatables">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <!-- <span>{{message}}</span> -->
+                                                </div>
+                                            </div>
+                                            <table class="table table-hover">
+                                                <thead class=" text-info">
+                                                    <th>Sr no.</th>
+                                                    <th>Title</th>
+                                                    <th>Expiry</th>
+                                                    <th>Minimum Credits Required</th>
+                                                    <th>No of Coupons</th>
+                                                    <th>Action</th>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let data of campaignsData; let i = index">
+                                                        <td>{{i + 1}}</td>
+                                                        <td>{{data.title}}</td>
+                                                        <td>{{data.expiry | date}}</td>
+                                                        <td>{{data.min_credits_req}}</td>
+                                                        <td>{{data.no_of_coupons}}</td>
+                                                        <button mat-raised-button type="button"
+                                                            matTooltip="View Details" [matTooltipPosition]="'above'"
+                                                            class="btn btn-info"
+                                                            (click)="navigateTo(data)">View</button>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-campaign-view *ngIf="!toggleTable" [(viewDetails)]="obj"></app-campaign-view>

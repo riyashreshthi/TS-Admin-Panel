@@ -1,0 +1,72 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row" style="margin-top: 160px">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header card-header-info" data-color="azure">
+                        <h4 class="card-title">Login</h4>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="loginForm" novalidate (ngSubmit)="addUser(loginForm.value)">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                              <i class="material-icons">email</i>
+                                            </span>
+                                        </div>
+                                    <mat-form-field class="example-full-width" style="width: 85%;">
+                                        <input matInput placeholder="Username" type="text"
+                                            class="form-control" [(ngModel)]="login.email" formControlName="email">
+                                    </mat-form-field>
+                                    <mat-error>
+                                        <span *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched">Please
+                                          Enter Username</span>
+                                      </mat-error>
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                              <i class="material-icons">lock_outline</i>
+                                            </span>
+                                        </div>
+                                    <mat-form-field class="example-full-width" style="width: 85%;">
+                                        <input matInput placeholder="Password" type="password" class="form-control"
+                                        [(ngModel)]="login.password" formControlName="password">
+                                    </mat-form-field>
+                                    <mat-error>
+                                        <span *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">Please
+                                          Enter Password</span>
+                                      </mat-error>
+                                      </div>
+                                </div>
+                            </div>
+                            <button mat-raised-button type="submit" class="btn btn-info pull-right" [disabled]="loginForm.invalid">
+                                Login
+                            </button>
+                            <!-- <div class="row">
+                                <div class="col-md-12">
+                                    <span>Don't have an account?</span>&nbsp;&nbsp;
+                                    <b style="color: #26c6da" [routerLink]="['/register']">Sign Up</b>
+                                </div>
+                            </div> -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span style="color: red">{{message}}</span>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+</div>

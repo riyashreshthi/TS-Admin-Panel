@@ -1,0 +1,77 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div class="main-content" style="padding-top: 25px;" *ngIf="toggleTable">
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-icon card-header-info">
+                                <div class="card-icon">
+                                <i class="material-icons">assignment</i>
+                                </div>
+                                <div class="row">
+
+                                <div class="col-md-3">
+
+                                    <h4 class="card-title"> <b>Participants</b></h4>
+                                </div>
+                            </div>
+                            <hr>
+                        </div> 
+                        <div class="card-body">
+                            <div class="material-datatables">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <!-- <span>{{message}}</span> -->
+                                                </div>
+                                            </div>
+                                            <table class="table table-hover">
+                                                <thead class=" text-info">
+                                                    <th>Sr no.</th>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Referral Made</th>
+                                                    <th>Credits</th>
+                                                    <th>Action</th>
+    
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let data of participantsData; let i = index">
+                                                        <td>{{i+1}}</td>
+                                                        <td>{{data.name}}</td>
+                                                        <td>{{data.email}}</td>
+                                                        <td>{{data.referral_made}}</td>
+                                                        <td>{{data.credit}}</td>
+                                                        
+                                                        <button mat-raised-button type="button"
+                                                            matTooltip="View Details" [matTooltipPosition]="'above'"
+                                                            class="btn btn-info"
+                                                            (click)="navigateTo(data)">View
+                                                        </button>
+                                                    </tr>
+                                                </tbody>
+                                                <table class="table table-hover" *ngIf = "participantsData == null">
+                                                    <tr>
+                                                        <!-- <th>{{message}}</th> -->
+                                                    </tr>
+                                                </table>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <!-- <div>
+                            <pagination-controls id="listingPagination" maxSize="5" directionLinks= "true" (pageChange) ="page = $event"></pagination-controls>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-lucky-draw-view *ngIf="!toggleTable" [(viewDetails)]="obj"></app-lucky-draw-view>

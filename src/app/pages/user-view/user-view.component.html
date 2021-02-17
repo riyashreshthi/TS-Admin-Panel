@@ -1,0 +1,53 @@
+<div class="main-content" style="padding-top: 25px;" *ngIf="toggleTable">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-icon card-header-info">
+                        <div class="row">
+                            <div class="col-md-1">
+                                <div class="card-icon">
+                                    <i class="material-icons">assignment</i>
+                                </div>
+                            </div>
+                            <div class="col-md-9"></div>
+                            <div class="col-md-2">
+                                <button mat-button type="button" class="btn pull-right btn-info"
+                                    style="border-radius: 30px; margin-top:7px" (click)="back()">Back</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="updationForm" (ngSubmit)="submitAction(updationForm.value)">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <mat-form-field class="example-full-width" style="width: inherit;">
+                                            <input matInput placeholder="User Available Credits" type="text" formControlName= "available_credits" 
+                                            value="{{viewDetails.available_credits}}" [(ngModel)]="updationForm.available_credits">
+                                        </mat-form-field>
+                                        <mat-error>
+                                            <span *ngIf="!updationForm.get('available_credits').valid && updationForm.get('available_credits').touched">Please
+                                            Enter User Available Credits</span>
+                                        </mat-error>
+                                    </div>
+                                </div>
+                            </div>
+                            <button mat-raised-button type="submit" class="btn btn-info pull-right">
+                                Update
+                            </button>
+                            
+                            <!-- <div class="row">
+                                <div class="col-md-12">
+                                    <span style="color: red">{{message}}</span>
+                                </div>
+                            </div> -->
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-user *ngIf="!toggleTable"></app-user>
