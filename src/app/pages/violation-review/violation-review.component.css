@@ -1,0 +1,85 @@
+.show {
+    display: inline;
+  }
+  
+  .showInput {
+    display: inline;
+  }
+  
+  .hide {
+    display: none;
+  }
+  
+  .card {
+    margin-top: 7px;
+    padding-left: 17px;
+    padding-right: 17px;
+  }
+  
+  th {
+    padding-left: 9px;
+    padding-right: 9px;
+  }
+  
+  ::ng-deep .mat-form-field-infix {
+    padding: 0px;
+  }
+  
+  .card [class*=card-header-] .card-icon, .card [class*=card-header-] .card-text {
+    border-radius: 3px;
+    margin-top: 8px;
+    padding: 5px;
+  }
+  #previousIcon
+  {
+    color:#00bcd4;padding-left: 10px;cursor:pointer;
+  }
+  #nextIcon
+  {
+    color:#00bcd4;padding-right: 0px ;cursor:pointer;
+  }
+  #editIcon
+  {
+    color:#00bcd4;
+  }
+  #saveButton
+  {
+    padding: 5px; margin-left: -15px;
+  }
+  .vehicle-header
+  {
+    border-top:1px solid lightgrey;
+  }
+  #metaData th
+  {
+    padding-right :0px;
+    padding-left: 0px;
+
+  }
+  #metaData td
+  {
+    padding-right :0px;
+    padding-left: 0px;
+
+  }
+
+  agm-map {
+    height: 200px;
+    margin: 0px;
+    padding: 0px;
+    width: 500px;
+  }
+  
+  ::ng-deep.agm-map-container-inner {
+    margin-left: -15px;
+    margin-top:10px
+  }
+  .table td {
+    padding-top: 0.2rem;
+    padding-left: 0.4rem;
+    padding-right:0rem;
+padding-bottom: 0.2rem;
+  }
+  mat-expansion-panel-header {
+    height: 100% !important;
+  }

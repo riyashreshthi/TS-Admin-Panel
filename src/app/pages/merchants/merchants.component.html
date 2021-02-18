@@ -1,0 +1,65 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div class="main-content"style="padding-top: 25px;" *ngIf="toggleTable">
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-icon card-header-info">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <div class="card-icon">
+                                        <i class="material-icons">assignment</i>
+                                    </div>
+                                </div>
+                                <div class="col-md-9"></div>
+                                <div class="col-md-2">
+                                    <button mat-raised-button (click)="createMerchant()" type="button"
+                                        matTooltip="Add Merchant" [matTooltipPosition]="'above'"
+                                        class="btn btn-info">Add Merchant</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="material-datatables">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <!-- <span>{{message}}</span> -->
+                                                </div>
+                                            </div>
+                                            <table class="table table-hover">
+                                                <thead class=" text-info">
+                                                    <th>Sr no.</th>
+                                                    <th>Merchant Name</th>
+                                                    <th>Site</th>
+                                                    <th>Person Name</th>
+                                                    <th>Person Contact Number</th>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let data of merchantsData; let i = index;">
+                                                        <td>{{i + 1}}</td>
+                                                        <td>{{data.name}}</td>
+                                                        <td>{{data.site}}</td>
+                                                        <td>{{data.person_name}}</td>
+                                                        <td>{{data.person_contact_number}}</td>
+                                                        <button mat-raised-button type="button"
+                                                            matTooltip="View Details" [matTooltipPosition]="'above'"
+                                                            class="btn btn-info" (click)="navigateTo(data)">View</button>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+<app-merchant-view *ngIf="!toggleTable" [(viewDetails)]="obj"></app-merchant-view>

@@ -1,0 +1,85 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row" style="margin-top: 160px">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header card-header-info" data-color="azure">
+                        <h4 class="card-title">Register</h4>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="registerForm" novalidate (ngSubmit)="newUser(registerForm.value)">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                              <i class="material-icons">face</i>
+                                            </span>
+                                        </div>
+                                        <mat-form-field class="example-full-width" style="width: 85%;">
+                                            <input matInput placeholder="Name" type="text"
+                                                class="form-control" [(ngModel)]="register.name" formControlName="name">
+                                        </mat-form-field>
+                                        <mat-error>
+                                            <span *ngIf="!registerForm.get('name').valid && registerForm.get('name').touched">Please
+                                              Enter Name</span>
+                                        </mat-error>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                              <i class="material-icons">email</i>
+                                            </span>
+                                        </div>
+                                    <mat-form-field class="example-full-width" style="width: 85%;">
+                                        <input matInput placeholder="Email" type="text"
+                                            class="form-control" [(ngModel)]="register.email" formControlName="email">
+                                    </mat-form-field>
+                                    <mat-error>
+                                        <span *ngIf="!registerForm.get('email').valid && registerForm.get('email').touched">Please
+                                          Enter Email</span>
+                                      </mat-error>
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                              <i class="material-icons">lock_outline</i>
+                                            </span>
+                                        </div>
+                                    <mat-form-field class="example-full-width" style="width: 85%;">
+                                        <input matInput placeholder="Password" type="password" class="form-control"
+                                        [(ngModel)]="register.password" formControlName="password">
+                                    </mat-form-field>
+                                    <mat-error>
+                                        <span *ngIf="!registerForm.get('password').valid && registerForm.get('password').touched">Please
+                                          Enter Password</span>
+                                      </mat-error>
+                                      </div>
+                                </div>
+                            </div>
+                            <button mat-raised-button type="submit" class="btn btn-info pull-right" [disabled]="registerForm.invalid">
+                                Register
+                            </button>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span style="color: red">{{message}}</span>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+</div>

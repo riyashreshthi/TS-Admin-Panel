@@ -1,0 +1,379 @@
+<div class="main-content" style="padding-top: 25px;">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header card-header-icon card-header-info">
+						<div class="row">
+							<div class="col-md-1">
+								<div class="card-icon">
+									<i class="material-icons">assignment</i>
+								</div>
+							</div>
+
+							<div class="col-md-9">
+								<table class="table">
+									<tbody>
+										<tr class="ng-star-inserted" id="metaData">
+											<th style="color:#00bcd4">{{viewDetails?.name}}</th>
+											<th> City:</th>
+											<td>{{viewDetails?.city}}</td>
+											<th>State:</th>
+											<td> {{viewDetails?.state}}</td>
+											<th>Locality:</th>
+											<td> {{viewDetails?.locality}}</td>
+											<th>Recorded At:</th>
+											<td> {{viewDetails?.captured_at | date}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="col-md-2">
+								<button mat-button type="button" class="btn pull-right btn-info"
+									style="border-radius: 30px; margin-top:7px" (click)="back()">Back</button>
+							</div>
+						</div>
+						<div class="row" style="margin-top: -13px;">
+							<div class="col-md-2">
+								<i class="material-icons" id="previousIcon" (click)="previous()">keyboard_arrow_left</i>
+							</div>
+							<div class="col-md-9 "></div>
+							<div class="col-md-1">
+								<i class="material-icons" id="nextIcon" (click)="next()">keyboard_arrow_right</i>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-6 col-md-6 col-sm-6">
+							<div class="card-body" style="padding-left: initial;">
+								<div class="container">
+									<video src="{{viewDetails?.video_url}}" type="video/mp4" width="500" height="300"
+										controls style="margin-left: -15px;">
+										Your browser does not support the video tag.
+
+									</video>
+									<div style="padding-top: 10px;">
+										<agm-map #gm [zoom]="15" [latitude]="viewDetails?.latitude"
+											[longitude]="viewDetails?.longitude">
+											<agm-marker [latitude]="viewDetails?.latitude"
+												[longitude]="viewDetails?.longitude"
+												(mouseOver)="onMouseOver(infoWindow, gm)"
+												(mouseOut)="onMouseOut(infoWindow)">
+												<agm-info-window #infoWindow>
+													<table>
+														<tbody>
+															<tr class="ng-star-inserted">
+																<th> City: </th>
+																<td> {{viewDetails?.city}}</td>
+															</tr>
+															<tr class="ng-star-inserted">
+																<th> State: </th>
+																<td> {{viewDetails?.state}}</td>
+															</tr>
+														</tbody>
+													</table>
+												</agm-info-window>
+											</agm-marker>
+										</agm-map>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-6">
+							<div class="card-body">
+								 <mat-accordion multi>
+									<mat-expansion-panel
+										*ngFor="let vehicle of vehiclesData; first as isFirst;let index = index"
+										[expanded]="isFirst" style="width: 485px; overflow-y: scroll;">
+										<mat-expansion-panel-header class="vehicle-header">
+											<div class="container">
+												<div class="row" style="margin-top:10px">
+													<div class="col-md-2" style="padding-left:2px;">
+														<i class="material-icons" style="padding: 0px 10px;">accessible</i>
+													</div>
+													<div class="col-md-5" style="margin-left: -15px;">
+														<p *ngIf="vehicle.showTitle">{{vehicle.vehicle_number}}
+														</p>
+														<input matInput *ngIf="vehicle.showSave" #vehicleNumberInput
+															value={{vehicle.vehicle_number}}>
+													</div>
+													<div class="col-md-3"></div>
+													<div class="col-1" *ngIf="vehicle.pendingViolations.length>0">
+														<i class="material-icons" id="editIcon" *ngIf="vehicle.showEdit"
+															(click)="onVehicleEditClick($event,index)">edit</i>
+														<button *ngIf="vehicle.showSave" type="button" class="btn btn-info"
+															id="saveButton"
+															(click)="onVehicleSaveClick($event, vehicle.vehicle_number,index)">Save</button>
+													</div>
+												</div>
+											</div>
+										</mat-expansion-panel-header>
+										<div class="row">
+											<button mat-raised-button type="button"
+											matTooltip="Show"
+											[matTooltipPosition]="'above'"
+											class="btn btn-info"
+											style="    margin: 0px; margin-left: 33%;" (click)="showCount(viewDetails?.meta_violation_id , vehicle.vehicle_id)">Show Reported Video</button>
+										</div>
+										<div class="row" *ngIf = "toShowRejection">
+											<table>
+												<tr>
+													<th>Evidence: <span>{{reportedVideoCounts?.evidence_not_visible}}</span>
+													</th>
+													<th>Vehile Number:
+														<span>{{reportedVideoCounts?.vehicle_not_visible}}</span></th>
+													<th>No Violations:
+														<span>{{reportedVideoCounts?.violations_not_visible}}</span></th>
+												</tr>
+												<tr>
+													<th>Report Spam: <span>{{reportedVideoCounts?.reported_spam}}</span></th>
+													<th>Number Mismatch:
+														<span>{{reportedVideoCounts?.number_mismatch}}</span></th>
+													<th>Phone In Hand: <span>{{reportedVideoCounts?.phone_in_hand}}</span>
+													</th>
+												</tr>
+											</table>
+										</div>
+										<div *ngIf="vehicle.vehicle_violations.length == 6" class="row">
+											<div class="col-md-12" style="padding: 0px;">
+												<div class="table-responsive"
+													style="border-top:1px solid lightgrey ;width:105%">
+													<table class="table table-hover" style="margin-bottom: 0rem;">
+														<thead class=" text-info">
+															<th>Violation Type</th>
+															<th>Voted</th>
+															<th>Not Voted</th>
+														</thead>
+														<tbody *ngFor="let violation of vehicle.vehicle_violations">
+															<td>{{violation.violation_type_name}}</td>
+															<td>{{violation.curated}}</td>
+															<td>{{violation.non_curated}}</td>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div> 
+										<div class="card-body" style="padding: 0px; height: 213px;">
+											<div id="accordion" role="tablist">
+												<div class="card-collapse" *ngIf="vehicle.pendingViolations.length>0"
+													style=" border-top:1px solid lightgray">
+													<div class="card-header" role="tab" id="headingOne"
+														style="padding-bottom: 0px;">
+														<h4>
+															<a data-toggle="collapse" href="#collapseOne"
+																aria-expanded="false" aria-controls="collapseOne"
+																class="collapsed" style="color:#00bcd4">
+																PENDING
+															</a>
+														</h4>
+													</div>
+													<div id="collapseOne" class="collapse show" role="tabpanel"
+														aria-labelledby="headingOne" data-parent="#accordion">
+														<div class="card-body"
+															*ngFor="let violation of vehicle.pendingViolations;let isFirst = first"
+															style="padding-top: 0rem;">
+															<ng-container *ngIf="violation.is_generated == false">
+																<div class="row">
+																	<div class="col-md-12" style="padding: 0px;">
+																		<div class="table-responsive"
+																			style="border-top:1px solid lightgrey;width:105%">
+																			<table class="table table-hover table-condensed"
+																				style="margin-bottom: 0rem;">
+																				<thead *ngIf="isFirst" class=" text-info">
+																					<th>Violation Type</th>
+																					<th>Voted</th>
+																					<th>Not Voted</th>
+																					<th>Credits</th>
+																				</thead>
+																				<tbody>
+																					<td>{{violation.violation_type_name}}
+																					</td>
+																					<td>{{violation.curated}}</td>
+																					<td>{{violation.non_curated}}
+																					</td>
+																					<td>{{violation.credits_granted}}
+																					</td>
+																				</tbody>
+																			</table>
+																		</div>
+																	</div>
+																</div>
+																<form
+																[formGroup]="violationStatusForm.get(violation.violation_id).videoForm "
+																(ngSubmit)="submitAction(violation.violation_id)">
+																<div class="row">
+																	<div class="col-md-4">
+																		<mat-form-field class="example-full-width">
+																			<mat-select placeholder="Status"
+																				(selectionChange)="onStatusChange($event.value * 1,violation.violation_id)"
+																				formControlName="status_id" required
+																				[value]="status_id">
+																				<mat-option value="2">Accepted
+																				</mat-option>
+																				<mat-option value="3">Rejected
+																				</mat-option>
+																			</mat-select>
+																		</mat-form-field>
+																		<mat-error>
+																			<span
+																				*ngIf="violationStatusForm.get(violation.violation_id).showError">Please
+																				Enter Status to update</span>
+																		</mat-error>
+																	</div>
+																	<div class="col-md-8"
+																		*ngIf="violationStatusForm.get(violation.violation_id).showRejectReasons">
+																		<mat-form-field class="example-full-width">
+																			<mat-select placeholder="Reject Reason"
+																				(selectionChange)="onReasonChange($event.value * 1)"
+																				formControlName="reject_reason">
+																				<ng-container
+																					*ngFor="let data of rejectReasons">
+																					<mat-option value="{{data.id}}">
+																						{{data.reason}}
+																					</mat-option>
+																				</ng-container>
+																			</mat-select>
+																		</mat-form-field>
+																	</div>
+																</div>
+																<div class="row"
+																	*ngIf="violationStatusForm.get(violation.violation_id).showRejectReasons">
+																	<div class="col-md-3">
+																		<input type="checkbox"
+																			(click)="updateStatus()">Other
+																		Reasons
+								
+																	</div>
+																	<div class="col-md-9" *ngIf="showReason">
+																		<mat-form-field class="example-full-width">
+																			<textarea style="padding: 0px;" matInput
+																				placeholder="Others"
+																				formControlName="reject_reason"
+																				[(ngModel)]="action.reject_reason"></textarea>
+																		</mat-form-field>
+																	</div>
+																</div>
+																<div class="row">
+																	<div class="col-md-5"></div>
+																	<div class="col-md-6">
+																		<button mat-raised-button type="submit"
+																			matTooltip="Update"
+																			[matTooltipPosition]="'above'"
+																			class="btn btn-info"
+																			style="margin:-15px;">Update</button>
+																	</div>
+																	<div class="clearfix"></div>
+																</div>
+															</form>
+															</ng-container>
+														</div>
+													</div>
+												</div>
+												<div class="card-collapse" style="border-top:1px solid lightgray"
+													*ngIf="vehicle.approvedViolations.length>0">
+													<div class="card-header" role="tab" id="headingTwo"
+														style="padding-bottom: 0px;">
+														<h4>
+															<a data-toggle="collapse" href="#collapseTwo"
+																aria-expanded="false" aria-controls="collapseOne"
+																class="collapsed" style="color:green; width: 410px;">
+																APPROVED
+															</a>
+														</h4>
+													</div>
+													<div id="collapseTwo" class="collapse show" role="tabpanel"
+														aria-labelledby="headingTwo" data-parent="#accordion">
+														<div class="card-body" style="padding-top: 0rem;    padding-bottom: 0rem;">
+															<div class="row">
+																<div class="col-md-12" style="padding: 0px;">
+																	<div class="table-responsive"
+																		style="border-top:1px solid lightgrey ;width:105%">
+																		<table class="table table-hover"
+																			style="margin-bottom: 0rem;">
+																			<thead class=" text-info">
+																				<th>Violation Type</th>
+																				<th>Voted</th>
+																				<th>Not Voted</th>
+																				<th>Credits</th>
+																				<th>Approved On</th>
+																			</thead>
+																			<tbody
+																				*ngFor="let violation of vehicle.approvedViolations">
+																				<td>{{violation.violation_type_name}}
+																				</td>
+																				<td>{{violation.curated}}</td>
+																				<td>{{violation.non_curated}}
+																				</td>
+																				<td>{{violation.credits_granted}}
+																				</td>
+																				<td>{{violation.updated_at | date}}
+																				</td>
+																			</tbody>
+																		</table>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="card-collapse" *ngIf="vehicle.rejectedViolations.length>0"
+													style="border-top:1px solid lightgray">
+													<div class="card-header" role="tab" id="headingThree"
+														style="padding-bottom: 0px;">
+														<h4>
+															<a data-toggle="collapse" href="#collapseThree"
+																aria-expanded="false" aria-controls="collapseOne"
+																class="collapsed" style="color:red">
+																REJECTED
+															</a>
+														</h4>
+													</div>
+													<div id="collapseThree" class="collapse show" role="tabpanel"
+														aria-labelledby="headingThree" data-parent="#accordion">
+														<div class="card-body"
+															style="padding-top: 0rem;padding-bottom: 0rem">
+															<div class="row">
+																<div class="col-md-12" style="padding: 0px;">
+																	<div class="table-responsive"
+																		style="border-top:1px solid lightgrey;width:105%">
+																		<table class="table table-hover"
+																			style="margin-bottom: 0rem;">
+																			<thead class=" text-info">
+																				<th>Violation Type</th>
+																				<th>Voted</th>
+																				<th>Not Voted</th>
+																				<th>Credits</th>
+																				<th style="width: 400px">Reject
+																					Reason</th>
+																			</thead>
+																			<tbody
+																				*ngFor="let violation of vehicle.rejectedViolations">
+																				<td>{{violation.violation_type_name}}
+																				</td>
+																				<td>{{violation.curated}}</td>
+																				<td>{{violation.non_curated}}
+																				</td>
+																				<td>{{violation.credits_granted}}
+																				</td>
+																				<td>{{violation.reject_reason}}
+																				</td>
+																			</tbody>
+																		</table>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</mat-expansion-panel>
+								</mat-accordion>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

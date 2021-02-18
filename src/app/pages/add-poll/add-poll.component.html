@@ -1,0 +1,91 @@
+<div class="main-content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-10">
+				<div class="card"  style="margin-top :50px">
+					<div class="card-header card-header-info" data-color="azure">
+						<h4 class="card-title">Post A Question</h4>
+					</div>
+					<div class="card-body">
+						<div class ="row">
+							<div class="col-md-9"></div>
+							<div class="col-md-2">
+						<button mat-raised-button style="float: right;" (click) = "pollList()" type="button"
+						matTooltip="Poll List" [matTooltipPosition]="'above'"
+						class="btn btn-info">Back</button>
+						</div>
+						</div>
+						<form [formGroup] = "pollForm" validate (ngSubmit)="submitPoll(pollForm.value)" #formDirective = "ngForm">
+						
+							<div class="container" style="margin: 0.5rem;">
+                                <div class ="container" style="margin-bottom: 20px;">
+                                <div class="row" >
+									<div class="col-md-9">
+										<mat-form-field>
+										<textarea matInput style = "padding:5px;" matInput rows="2"placeholder="Enter a Question" type="text"[(ngModel)]="poll.question"
+                                    class="form-control" formControlName="question"></textarea>
+							
+							</mat-form-field>
+							<mat-error>
+								<span *ngIf="pollForm.get('question').hasError('required') && submitClick">Please
+								  Enter Question</span>
+							  </mat-error>
+
+								</div>
+                                </div>
+                                </div>
+                                <div class ="container" style="margin-bottom: 20px;">
+                                <div class="row" >
+                                    	<div class="col-md-4">
+											 <input type="datetime-local" id="myLocalDate" value="2014-11-19T12:12:33" step="2" formControlName="expiry"	>
+										</div>
+								        </div>
+                                </div>
+								<div class ="container"  style="margin-bottom: 20px;">
+									<div class="row">
+									<div class="col-md-4">
+										<mat-form-field style= "display: inline" class="example-full-width">
+											<input style= "display: inline"  #optionField matInput placeholder="Enter Options" type="text" class="form-control"
+									name="options">
+
+										</mat-form-field> 
+											<mat-error>
+												<span *ngIf="optionsLengthValidation">Maximum 4 options are allowed for a question</span>
+												<span *ngIf="poll.options.length<2 && submitClick">Minimum 2 options are mandatory for a question</span>
+											</mat-error>
+
+										</div>
+				
+										<div class="col-md-3">
+											<button type="button" style="margin-top:15px" mat-raised-button (click)= "addOption()" class="btn btn-info">Add</button>
+										</div>
+									</div>
+									<div class="row">
+									<mat-chip-list #chipList>
+										<mat-chip *ngFor="let option of poll.options" [selectable]="selectable"
+[removable]="removable" (removed)="remove(option)">
+				{{option}}
+				
+											<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+										</mat-chip>
+									</mat-chip-list>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-7"></div>
+
+									<div  class="col-md-1">
+										
+										<button style="padding:0px;margin:0px" mat-raised-button type="submit" [disabled] ="disableSubmitButton()" class="btn btn-danger" style="margin-top:10px;">
+											Post
+										</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

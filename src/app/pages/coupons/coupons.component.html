@@ -1,0 +1,68 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div class="main-content" style="padding-top: 25px;" >
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-icon card-header-info">
+                            <div class="card-icon">
+                                <i class="material-icons">assignment</i>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4 class="card-title"> <b>Coupons List</b></h4>
+                                </div>
+                            </div>
+                        </div>  
+                        <div class="card-body">
+                            <div class="material-datatables">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <!-- <span>{{message}}</span> -->
+                                                </div>
+                                            </div>
+                                            <table class="table table-hover">
+                                                <thead class=" text-info">
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Mobile</th>
+                                                    <th>Available Credits</th>
+                                                    <th>Used Credits</th>
+                                                    <!-- <th>Action</th> -->
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let data of couponsData | paginate: {id: 'listingPagination',
+                                                                itemsPerPage: 10,
+                                                                currentPage: page,
+                                                                totalItems: totalRecords}; let i = index">
+                                                        <td>{{data.name}}</td>
+                                                        <td>{{data.email}}</td>
+                                                        <td>{{data.mobile}}</td>
+                                                        <td>{{data.available_credits}}</td>
+                                                        <td>{{data.used_credits}}</td>
+                                                        <button mat-raised-button type="button"
+                                                            matTooltip="View Details" [matTooltipPosition]="'above'"
+                                                            class="btn btn-info"
+                                                            (click)="navigateTo(data)">View</button>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div>
+                            <pagination-controls id="listingPagination" maxSize="5" directionLinks= "true" (pageChange) ="page = $event"></pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

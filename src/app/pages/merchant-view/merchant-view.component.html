@@ -1,0 +1,130 @@
+<div class="main-content" style="padding-top: 25px;" *ngIf="toggleTable">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-icon card-header-info">
+                        <div class="row">
+                            <div class="col-md-1">
+                                <div class="card-icon">
+                                    <i class="material-icons">assignment</i>
+                                </div>
+                            </div>
+                            <div class="col-md-9"></div>
+                            <div class="col-md-2">
+                                <button mat-button type="button" class="btn pull-right btn-info"
+                                    style="border-radius: 30px; margin-top:7px" (click)="back()">Back</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="updationForm" (ngSubmit)="submitAction()">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <mat-form-field class="example-full-width" style="width: inherit;">
+                                            <input matInput placeholder="Merchant Name" type="text" formControlName= "name" >
+                                        </mat-form-field>
+                                        <mat-error>
+                                            <span *ngIf="!updationForm.get('name').valid && updationForm.get('name').touched">Please
+                                            Enter Merchant Name</span>
+                                        </mat-error>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <mat-form-field class="example-full-width" style="width: inherit;">
+                                            <input matInput placeholder="Logo" type="text" formControlName= "logo">
+                                        </mat-form-field>
+                                        <mat-error>
+                                            <span *ngIf="!updationForm.get('logo').valid && updationForm.get('logo').touched">Please
+                                            Enter Logo URL</span>
+                                        </mat-error>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <mat-form-field class="example-full-width" style="width: inherit;">
+                                            <input matInput placeholder="Site" type="text" formControlName= "site">
+                                        </mat-form-field>
+                                        <mat-error>
+                                            <span *ngIf="!updationForm.get('site').valid && updationForm.get('site').touched">Please
+                                            Enter Website URL</span>
+                                        </mat-error>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <mat-form-field class="example-full-width" style="width: inherit;">
+                                            <input matInput placeholder="Person Name" type="text" formControlName= "person_name">
+                                        </mat-form-field>
+                                        <mat-error>
+                                            <span *ngIf="!updationForm.get('person_name').valid && updationForm.get('person_name').touched">Please
+                                            Enter Person Name</span>
+                                        </mat-error>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <mat-form-field class="example-full-width" style="width: inherit;">
+                                            <input matInput placeholder="Person Contact Number" type="number" formControlName= "person_contact_number">
+                                        </mat-form-field>
+                                        <mat-error>
+                                            <span *ngIf="!updationForm.get('person_contact_number').valid && updationForm.get('person_contact_number').touched">Please
+                                            Enter Person Contact Number</span>
+                                        </mat-error>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <mat-form-field class="example-full-width" style="width: inherit;">
+                                            <textarea matInput placeholder="Address" type="text" formControlName= "address"></textarea>
+                                        </mat-form-field>
+                                        <mat-error>
+                                            <span *ngIf="!updationForm.get('address').valid && updationForm.get('address').touched">Please
+                                            Enter Person Address</span>
+                                        </mat-error>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- <mat-form-field class="example-full-width">
+										<mat-select placeholder="Select Brand" formControlName= "brand_id"
+                                            (selectionChange)="brandSelection($event.value * 1)" [value]="brand_id">
+											<ng-container *ngFor="let data of brandsList">
+                                                <mat-option value="{{data.id}}"> {{data.brand_name}}</mat-option> 
+                                                <mat-option value="{{data.id}}" *ngIf = "data.id != selected"> {{data.brand_name}}</mat-option>
+                                                <mat-option value="{{data.id}}" *ngIf = "data.id == selected" selected="selected"> {{data.brand_name}}</mat-option>
+                                            </ng-container>
+                                        </mat-select>
+                                    </mat-form-field> -->
+                                    <select class="form-control example-full-width control-ui" formControlName= "brand_id"
+                                    (selectionChange)="brandSelection($event.value * 1)" [value]="brand_id">
+                                    <ng-container *ngFor="let data of brandsList">
+                                        <option value="{{data.id}}" *ngIf = "data.id != selected"> {{data.brand_name}}</option>
+                                        <option value="{{data.id}}" *ngIf = "data.id == selected" selected> {{data.brand_name}}</option>
+                                    </ng-container>
+                                    </select>
+                                </div>
+                            </div>
+                            <button mat-raised-button type="submit" class="btn btn-info pull-right">
+                                Update
+                            </button>
+                            
+                            <!-- <div class="row">
+                                <div class="col-md-12">
+                                    <span style="color: red">{{message}}</span>
+                                </div>
+                            </div> -->
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-merchants *ngIf="!toggleTable"></app-merchants>
